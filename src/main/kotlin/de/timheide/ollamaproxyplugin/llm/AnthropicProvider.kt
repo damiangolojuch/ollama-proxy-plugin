@@ -31,7 +31,7 @@ class AnthropicProvider(
             header("x-api-key", apiKey)
             header("anthropic-version", "2023-06-01")
             setBody(buildJsonObject {
-                put("model", "claude-3-5-sonnet-20241022")
+                put("model", "claude-3-7-sonnet-20250219")
                 put("system", systemContent)
                 putJsonArray("messages") {
                     chatMessages.forEach { message ->
@@ -57,7 +57,7 @@ class AnthropicProvider(
                 ?: throw LLMError.ParseError("Missing content"),
             promptTokens = responseJson["usage"]?.jsonObject?.get("input_tokens")?.jsonPrimitive?.intOrNull,
             completionTokens = responseJson["usage"]?.jsonObject?.get("output_tokens")?.jsonPrimitive?.intOrNull,
-            model = "claude-3-5-sonnet-20241022",
+            model = "claude-3-7-sonnet-20250219",
             createdAt = Instant.now().toString()
         )
     }
@@ -66,6 +66,14 @@ class AnthropicProvider(
         val currentTime = DateTimeFormatter.ISO_INSTANT.format(Instant.now())
 
         return listOf(
+            Model(
+                name = "claude-3-7-sonnet-20250219",
+                model = "claude-3-7-sonnet-20250219",
+                modified_at = currentTime,
+                size = 175_000_000_000L,
+                digest = "anthropic-claude-3-7-sonnet",
+                details = ModelDetails()
+            ),
             Model(
                 name = "claude-3-5-sonnet-20241022",
                 model = "claude-3-5-sonnet-20241022",
@@ -93,12 +101,11 @@ class AnthropicProvider(
         )
     }
 
-
-
     override suspend fun getModelDetails(modelName: String): Result<JsonObject> = runCatching {
         val currentTime = DateTimeFormatter.ISO_INSTANT.format(Instant.now())
 
         val (description, parameterSize) = when (modelName) {
+            "claude-3-7-sonnet-20250219" -> "Our most advanced model" to "200B"
             "claude-3-5-sonnet-20241022" -> "Our most intelligent model" to "200B"
             "claude-3-5-haiku-20241022" -> "Our fastest model" to "100B"
             "claude-3-opus-20240229" -> "Powerful model for highly complex tasks" to "400B"

@@ -3,12 +3,13 @@
     <name>Ollama Proxy</name>
     <vendor>Tim Heide</vendor>
     <description><![CDATA[
-        <p>Enables using Anthropic's Claude 3.5 models with the JetBrains AI Assistant plugin.</p>
+        <p>Enables using Anthropic's Claude models with the JetBrains AI Assistant plugin.</p>
 
         <p>This plugin provides a proxy that allows you to use Claude models through the AI Assistant's "Enable Ollama" feature in Third-party AI providers settings.</p>
 
         <h3>Supported Models</h3>
         <ul>
+            <li>Claude-3.7-Sonnet</li>
             <li>Claude-3.5-Sonnet</li>
             <li>Claude-3.5-Opus</li>
             <li>Claude-3.5-Haiku</li>
